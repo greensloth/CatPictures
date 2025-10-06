@@ -8,7 +8,7 @@ def load_image(url):
         response = requests.get(url)
         response.raise_for_status()
         image_data = Image.open(BytesIO(response.content))
-        image_data.thumbnail((600,480), Image.Resampling.LANCZOS)
+        image_data.thumbnail((600, 480), Image.Resampling.LANCZOS)
         return ImageTk.PhotoImage(image_data)
     except Exception as e:
         print(f'Произошла ошибка: {e}')
@@ -27,8 +27,17 @@ window.geometry("600x480")
 label = tk.Label()
 label.pack()
 
-update_button = tk.Button(window, text="Ещё котика!", command=set_image)
-update_button.pack()
+# update_button = tk.Button(window, text="Ещё котика!", command=set_image)
+# update_button.pack()
+
+menubar = tk.Menu(window)
+window.config(menu=menubar)
+
+file_menu = tk.Menu(menubar, tearoff=0)
+menubar.add_cascade(label="Файл", menu=file_menu)
+file_menu.add_command(label="Загрузить кота", command=set_image)
+file_menu.add_separator()
+file_menu.add_command(label="Выход", command=window.quit)
 
 url = 'https://cataas.com/cat'
 set_image()
