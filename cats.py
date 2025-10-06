@@ -14,18 +14,19 @@ def load_image(url):
         print(f'Произошла ошибка: {e}')
         return None
 
-def set_image():
+def open_new_window():
     img = load_image(url)
     if img is not None:
-        label.configure(image=img)
+        new_window = tk.Toplevel()
+        new_window.title('Картинка с котиком')
+        new_window.geometry("600x480")
+        label = tk.Label(new_window, image=img)
+        label.pack()
         label.image = img
 
 window = tk.Tk()
 window.title("Cats")
 window.geometry("600x480")
-
-label = tk.Label()
-label.pack()
 
 # update_button = tk.Button(window, text="Ещё котика!", command=set_image)
 # update_button.pack()
@@ -35,11 +36,10 @@ window.config(menu=menubar)
 
 file_menu = tk.Menu(menubar, tearoff=0)
 menubar.add_cascade(label="Файл", menu=file_menu)
-file_menu.add_command(label="Загрузить кота", command=set_image)
+file_menu.add_command(label="Загрузить кота", command=open_new_window)
 file_menu.add_separator()
 file_menu.add_command(label="Выход", command=window.quit)
 
 url = 'https://cataas.com/cat'
-set_image()
 
 window.mainloop()
