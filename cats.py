@@ -8,6 +8,7 @@ def load_image(url):
         response = requests.get(url)
         response.raise_for_status()
         image_data = Image.open(BytesIO(response.content))
+        image_data.thumbnail((600,480), Image.Resampling.LANCZOS)
         return ImageTk.PhotoImage(image_data)
     except Exception as e:
         print(f'Произошла ошибка: {e}')
