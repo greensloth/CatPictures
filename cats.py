@@ -23,11 +23,6 @@ def tag_cat():
     url_tag = f'https://cataas.com/cat/{tag}' if tag else 'https://cataas.com/cat'
     open_new_window()
 
-def random_cat():
-    global url_tag
-    url_tag = 'https://cataas.com/cat'
-    open_new_window()
-
 def open_new_window():
     img = load_image(url_tag)
     if img is not None:
@@ -51,7 +46,7 @@ file_menu.add_command(label="Загрузить кота", command=open_new_wind
 file_menu.add_separator()
 file_menu.add_command(label="Выход", command=window.quit)
 
-url = 'https://cataas.com/cat'
+url_tag = 'https://cataas.com/cat'
 
 tag_label = tk.Label(window, text="Выберите тэг")
 tag_label.pack()
@@ -61,7 +56,7 @@ tag_combobox.pack()
 load_button = tk.Button(window, text="Загрузить по тэгу", command=lambda: tag_cat())
 load_button.pack()
 
-random_button = tk.Button(window, text="Случайный котик", command=lambda: random_cat())
+random_button = tk.Button(window, text="Случайный котик", command=lambda: open_new_window())
 random_button.pack()
 
 window.mainloop()
