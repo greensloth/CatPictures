@@ -17,11 +17,19 @@ def load_image(url):
         print(f'Произошла ошибка: {e}')
         return None
 
-def open_new_window():
+def tag_cat():
+    global url_tag
     tag = tag_combobox.get()
     url_tag = f'https://cataas.com/cat/{tag}' if tag else 'https://cataas.com/cat'
-    img = load_image(url_tag)
+    open_new_window()
 
+def random_cat():
+    global url_tag
+    url_tag = 'https://cataas.com/cat'
+    open_new_window()
+
+def open_new_window():
+    img = load_image(url_tag)
     if img is not None:
         new_window = tk.Toplevel()
         new_window.title('Картинка с котиком')
@@ -50,7 +58,10 @@ tag_label.pack()
 tag_combobox = ttk.Combobox(window, values=Allowed_tags)
 tag_combobox.pack()
 
-load_button = tk.Button(window, text="Загрузить по тэгу", command=open_new_window)
+load_button = tk.Button(window, text="Загрузить по тэгу", command=lambda: tag_cat())
 load_button.pack()
+
+random_button = tk.Button(window, text="Случайный котик", command=lambda: random_cat())
+random_button.pack()
 
 window.mainloop()
